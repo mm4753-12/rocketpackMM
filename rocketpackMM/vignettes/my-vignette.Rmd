@@ -1,0 +1,84 @@
+---
+title: "MM-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rocketpackMM)
+```
+
+There are seven functions in this package.
+
+# ZSCORE
+
+Function zscore() returns a vector of Z-scores based on the mean and standard deviation of the input vector X. Its sole purpose is to calculate this quotient.
+
+```{r}
+#Example:
+zscore(c(1.1,1.2,1.3,1.4,1.5))
+```
+
+# YOURNCURVE (MYNCURVE)
+
+Two functions with the same purpose, yourncurve() and myncurve() read the parameters of a normal distribution and return a density curve and a probability based on an area under the curve. The functitons are interchangeable, using the same defaults, one being a draft of the other.
+
+```{r}
+#Example:
+myncurve(6,10,5)
+```
+
+# YOURMLBETA
+
+Function yourmlbeta() returns maximum likelihood estimates for the parameters of a beta distribution. To do so, it must be given a sample to read that may be approximated as a beta distribution.
+
+```{r}
+#Example:
+yourmlbeta(x=rbeta(100,shape1=2,shape2=5),alpha=seq(1,4,length=100),beta=seq(2,8,length=100),lwd=2,labcex=1)
+```
+
+# YOURCLT
+
+Function yourclt() takes a uniform random sample and produces a histogram approximating the sample as a normal distribution. The input values define a matrix for this random sample, the size of which determines how well the normal approximation fits.
+
+```{r}
+#Example:
+yourclt(n=10,iter=10000)
+```
+
+# YOURBOOT
+
+Function yourboot() creates bootstrap statistics for a random sample from a normal distribution. It returns a histogram with point and interval estimates for those statistics. The default value of interest is the mean.
+
+```{r}
+#Example:
+yourboot(iter=10000,rnorm(20,mean=10,sd=4))
+```
+
+# YOURBIN
+
+Function yourbin() simulates and plots a binomial distribution based on a matrix of randomly chosen values (with replacement) and a designated probability.
+
+```{r}
+#Example:
+yourbin(iter=1000,n=18, p=0.3)
+```
+
+# MYIC
+
+Function myic() reads a vector and returns a 95% confidence interval for the values therein. It makes use of the pivotal statistic T towards this end. The function may be modified to produce a different interval as needed.
+
+```{r}
+#Example:
+myic(c(5.0581, 4.9707, 5.0893, 4.9334, 4.9777, 5.0285, 4.8555, 4.9565, 4.9769, 4.9722, 4.999, 4.9925, 4.9686, 5.0662, 4.9239, 4.9781, 5.0485, 5.0014, 4.9957, 5.0195, 5.0118, 4.9928, 5.0361, 5.0185, 4.9879))
+```
